@@ -1,0 +1,91 @@
+
+  <div class = "search">
+   <div class = "container">
+      <div class = "title">
+        <h2 id = "test">Search</h2>
+      </div>
+   </div>
+  </div>
+
+  <div class = "post">
+    <div class = "container">
+      <div class = "title">
+        <h2 class = "home_heading"><%= link_to("Messages","/post/index", class: "body_heading") %></h2>
+        <div class = "post_btn">
+          <a class = "btn" id = "post_new"> 新規投稿 </a>
+        </div>
+      </div>
+
+      <div class = "mess_container">
+      <% @users.each do |user| %>
+        <% if user.id == 1 %>
+        <% elsif user.latest_post == nil %>
+        <% else %>
+
+          <% if user.id.to_i % 4 == 1 %>
+           <div class = "each_mess blue">
+          <% elsif user.id.to_i % 4 == 2 %>
+           <div class = "each_mess green">
+          <% elsif user.id.to_i % 4 == 3 %>
+           <div class = "each_mess red">
+          <% elsif user.id.to_i % 4 == 0 %>
+           <div class = "each_mess yellow">
+          <% end %>
+
+          <div class = "image_container_mess">
+            <img class = "each_user_image_mess" src = "<%="/user_image/#{user.image_name}" %>">
+          </div>
+          <div class = "each_info_mess">
+            <%= link_to("#{user.name}", "/user/#{user.id}", id: "message_info") %>
+          </div>
+          <%= link_to("/post/#{user.latest_post.id}/show", class: 'mess_link') do %>
+            <div class = "mess_contents">
+              <p><%= user.latest_post.contents %> <p>
+            </div>
+          <% end %>
+          <% if user.latest_post.post_image != nil %>
+            <%= link_to("画像があります","/post/#{user.latest_post.id}/show", class: 'mess_image_link') %>
+          <% end %>
+          <i class = "post_updated_at">
+            <%= user.latest_post.update_time %>
+          </i>
+        </div>
+        <% end %>
+      <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class = "calendar">
+    <div class = "container">
+      <div class = "title">
+        <h2><%= link_to("Calendar","", class: "body_heading") %></h2>
+      </div>
+    </div>
+  </div>
+
+
+  <div class = "modal_form" id = "post_modal">
+    <div class = "modal">
+      <div class = "modal_heading">
+        <div class = "modal_container">
+          <span class = "fa fa-times close_button"></span>
+          <h3>新規投稿</h3>
+        </div>
+      </div>
+    <%= form_tag("/post/new_post", multipart: :true) do %>
+      <div class = "modal_container">
+        <div class = "modal_contents">
+          <p>テキストを入力</p>
+          <textarea name="post_content" id="" cols="50" rows="10"></textarea>
+          <p>画像のアップロード</p>
+          <input class = "post_image" type = "file" name = "post_image" style = "font-size:15px;">
+        </div>
+        <div class = "modal_submit">
+          <input type="submit" value = "投稿" class = "register">
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>

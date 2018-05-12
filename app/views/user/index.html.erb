@@ -1,0 +1,25 @@
+<div class = "user_index">
+  <div class = "container">
+<% @users.each do |user| %>
+  <% if user.id == 1 %>
+  <% else %>
+    <% if user.id.to_i % 4 == 1 %>
+     <div class = "each_user blue">
+    <% elsif user.id.to_i % 4 == 2 %>
+     <div class = "each_user green">
+    <% elsif user.id.to_i % 4 == 3 %>
+     <div class = "each_user red">
+    <% elsif user.id.to_i % 4 == 0 %>
+     <div class = "each_user yellow">
+    <% end %>
+    <div class = "image_container">
+      <img class = "each_user_image" src = "<%="/user_image/#{user.image_name}" %>">
+    </div>
+    <div class = "each_info">
+      <%= link_to("#{user.name}", "/user/#{user.id}", id: "brief_info") %>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+  </div>
+</div>

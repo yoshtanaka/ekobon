@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ekoBoard</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <div class = "header">
+    <div class = "container">
+      <a> <%=link_to("ekoBoard","/", class: "header_logo")%> </a>
+      <% if session[:user_id] == nil %>
+        <ul>
+          <li><a class = "header_menu", id = "signup">新規登録</a></li>
+          <li><a class = "header_menu", id = "login">ログイン</a></li>
+        </ul>
+      <% else %>
+        <ul>
+          <li><%= link_to("マイページ","/user/#{@current_user.id}", class: "header_menu") %></li>
+          <li><%= link_to("投稿一覧","/post/index", class: "header_menu") %></li>
+          <li><%= link_to("ユーザー一覧","/user/index", class: "header_menu") %></li>
+          <li><%= link_to("カレンダー","", class: "header_menu") %></li>
+          <li><%= link_to("ログアウト","/user/logout", class: "header_menu", method: :post) %></li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <body>
+    <%= yield %>
+  </body>
+
+  <div class = "footer">
+    <div class = "container">
+      <% if flash[:notice] %>
+        <span class = "flash"><%= flash[:notice] %></span>
+      <% end %>
+      <span class = "fa fa-comment footer_comment"> <%= link_to("お問い合わせ", "") %></span>
+    </div>
+  </div>
+
+  <!-- Modal -->
+
+    <div class = "modal_form" id = "signup_modal">
+      <div class = "modal">
+        <div class = "modal_heading">
+          <div class = "modal_container">
+            <span class = "fa fa-times close_button"></span>
+            <h3>新規登録</h3>
+          </div>
+        </div>
+      <%= form_tag("/user/signup") do %>
+        <div class = "modal_container">
+          <div class = "modal_contents">
+            <p>User Name</p>
+            <input name = "name" type="text">
+            <p>Email Address</p>
+            <input name = "email" type="text">
+            <p>Password</p>
+            <input name = "password" type="password">
+            <p>Keyword</p>
+            <input name = "keyword" type="password">
+          </div>
+          <div class = "modal_submit">
+            <input type="submit" value = "登録" class = "register">
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class = "modal_form" id = "login_modal">
+      <div class = "modal">
+        <div class = "modal_heading">
+          <div class = "modal_container">
+            <span class = "fa fa-times close_button"></span>
+            <h3>ログイン</h3>
+          </div>
+        </div>
+      <%= form_tag("/user/login") do %>
+        <div class = "modal_container">
+          <div class = "modal_contents">
+            <p>Email Address</p>
+            <input name = "email" type="text">
+            <p>Password</p>
+            <input name = "password" type="password">
+          </div>
+          <div class = "modal_submit">
+            <input type="submit" value = "ログイン" class = "register">
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+
+</html>

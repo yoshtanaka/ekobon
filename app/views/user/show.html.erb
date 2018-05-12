@@ -1,0 +1,100 @@
+<div class = "user_page">
+  <div class = "container">
+    <div class = "profile_box">
+
+    <% if @current_user.id == @user.id %>
+      <%= form_tag("/user/#{@user.id}/update", multipart: :true) do %>
+
+      <div class = "prof_image_box">
+        <img class = "profile_image" src = "<%="/user_image/#{@user.image_name}" %>">
+        <p>プロフィール画像の変更</p>
+        <input name = "image" type = "file">
+      </div>
+
+      <div class = "prof_form">
+        <div class = "prof_contents">
+          <p>User Name</p>
+          <h4 class = "prof_show active"><%= @user.name %> </h4>
+          <input class = "prof_edit" name = "name" value = "<%= @user.name %>">
+        </div>
+        <div class = "prof_contents">
+          <p>Email Address</p>
+          <h4 class = "prof_show active"><%= @user.email %> </h4>
+          <input class = "prof_edit" name = "email" value = "<%= @user.email %>">
+        </div>
+      </div>
+
+      <input class = "prof_submit" type = "submit" value = "プロフィール変更の保存">
+
+      <% end %>
+
+      <input id = "pass_change" class = "prof_submit" type = "submit" value = "パスワードの変更">
+
+    </div>
+    <input id = "destroy_btn" type = "submit" value = "ユーザーの削除">
+    <% else %>
+
+    <div class = "prof_image_box">
+      <img class = "profile_image" src = "<%="/user_image/#{@user.image_name}" %>">
+    </div>
+
+    <div class = "prof_form">
+      <div class = "prof_contents">
+        <p>User Name</p>
+        <h4><%= @user.name %> </h4>
+        </div>
+      <div class = "prof_contents">
+        <p>Email Address</p>
+        <h4><%= @user.email %> </h4>
+        </div>
+    </div>
+
+    <% end %>
+
+        <div class = "modal_form" id = "password_change">
+          <div class = "modal">
+            <div class = "modal_heading">
+              <div class = "modal_container">
+                <span class = "fa fa-times close_button"></span>
+                <h3>パスワードの変更</h3>
+              </div>
+            </div>
+          <%= form_tag("/user/#{@user.id}/pass_change") do %>
+            <div class = "modal_container">
+              <div class = "modal_contents">
+                <p>旧パスワード</p>
+                <input name = "former_password" type="password">
+                <p>新パスワード</p>
+                <input name = "new_password" type="password">
+              </div>
+              <div class = "modal_submit">
+                <input type="submit" value = "変更の保存" class = "register">
+              </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class = "modal_form" id = "user_destroy">
+          <div class = "modal">
+            <div class = "modal_heading">
+              <div class = "modal_container">
+                <span class = "fa fa-times close_button"></span>
+                <h3>ユーザーの削除</h3>
+              </div>
+            </div>
+            <div class = "modal_container">
+              <div class = "modal_contents">
+                <p>ユーザーが削除されます。よろしいですか？</p>
+                <%= form_tag("/user/#{@user.id}/destroy") do %>
+                  <input type="submit" value = "はい" class = "yesno">
+                <% end %>
+                <input type="submit" value = "いいえ" class = "close_button yesno">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+  </div>
+</div>

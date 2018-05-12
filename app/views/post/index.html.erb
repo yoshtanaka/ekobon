@@ -1,0 +1,41 @@
+<div class = "post_index">
+  <div class = "container">
+<% @posts.each do |post| %>
+  <% if post.user_id == 1 %>
+  <% elsif post.user == nil %>
+  <% else %>
+
+     <div class = "each_post
+         <% if post.user_id.to_i % 4 == 1 %>
+         blue
+         <% elsif post.user_id.to_i % 4 == 2 %>
+         green
+         <% elsif post.user_id.to_i % 4 == 3 %>
+         red
+         <% elsif post.user_id.to_i % 4 == 0 %>
+         yellow
+         <% end %>
+      ">
+
+    <div class = "image_container_post">
+      <img class = "each_user_image_post" src = "<%="/user_image/#{post.user.image_name}" %>">
+    </div>
+    <div class = "each_info_post">
+      <%= link_to("#{post.user.name}", "/user/#{post.user.id}", id: "brief_info_post") %>
+    </div>
+    <%= link_to("/post/#{post.id}/show", class: 'post_link') do %>
+      <div class = "post_contents">
+        <p><%= post.contents %> <p>
+      </div>
+    <% end %>
+    <% if post.post_image != nil %>
+      <%= link_to("画像があります","/post/#{post.id}/show", class: 'post_image_link') %>
+    <% end %>
+    <i class = "post_updated_at">
+      <%= post.update_time %>
+    </i>
+  </div>
+  <% end %>
+<% end %>
+  </div>
+</div>

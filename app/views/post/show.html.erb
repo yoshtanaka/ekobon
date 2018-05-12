@@ -1,0 +1,46 @@
+<div class = "post_show">
+  <div class = "container">
+    <div class = "post_show_container">
+      <div class = "image_container_post">
+        <img class = "post_show_userimage" src = "<%="/user_image/#{@post.user.image_name}" %>">
+      </div>
+      <div class = "post_show_username">
+        <%= link_to("#{@post.user.name}", "/user/#{@post.user.id}", id: "post_show_info") %>
+      </div>
+      <div class = "post_show_contents">
+        <p><%= @post.contents %> <p>
+      </div>
+      <i class = "post_updated_at">
+        <%= @post.update_time %>
+      </i>
+      <% if @post.post_image != nil %>
+        <div class = "post_image_container">
+          <img class = "post_show_image" src = "<%="/post_image/#{@post.post_image}" %>">
+        </div>
+      <% end %>
+      <br>
+      <input type = "submit" value = "投稿の削除" id = "destroy_btn_post">
+
+    </div>
+    <div class = "modal_form" id = "post_destroy">
+      <div class = "modal">
+        <div class = "modal_heading">
+          <div class = "modal_container">
+            <span class = "fa fa-times close_button"></span>
+            <h3>投稿の削除</h3>
+          </div>
+        </div>
+        <div class = "modal_container">
+          <div class = "modal_contents">
+            <p>投稿が削除されます。よろしいですか？</p>
+            <%= form_tag("/post/#{@post.id}/destroy") do %>
+              <input type="submit" value = "はい" class = "yesno">
+            <% end %>
+            <input type="submit" value = "いいえ" class = "close_button yesno">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
